@@ -11,6 +11,7 @@ using Services_MF;
 
 namespace Mf_Hub.Controllers
 {
+    [AllowAnonymous]
     public class UsersController : ApiController
     {
         private readonly IUserService _userService;
@@ -33,19 +34,22 @@ namespace Mf_Hub.Controllers
             return "value";
         }
 
-        // POST api/values
         public void Post([FromBody]User value)
         {
             var user = _userLogic.CompleteUser(value);
             var result =_userService.SaveUser(user);
         }
 
-
         [Route("api/users/ValidateUser/")]
-        public string PostValidateUser([FromBody]User values)
+        public IHttpActionResult PostValidateUser([FromBody]User values)
         {
             var user = _userService.RetrieveUser(values.Name);
-            return _userLogic.ValidateUser(values.PasswordHash, user);
+            if (_userLogic.ValidateUser(values.PasswordHash, user))
+            {
+                var token = TokenGenerator.GenerateTokenJwt(user.Name);
+                return Ok(token);
+            }
+            return Unauthorized();
         }
         // PUT api/values/5
         public void Put(int id, [FromBody]string value)

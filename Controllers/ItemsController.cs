@@ -9,6 +9,7 @@ using Services_MF;
 
 namespace Mf_Hub.Controllers
 {
+    [Authorize]
     public class ItemsController : ApiController
     {
         private readonly IItemService _itemService;
