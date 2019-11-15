@@ -4,15 +4,17 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using Repository_Mf_Hub;
 using Services_MF;
 
 namespace Mf_Hub.Controllers
 {
+    //[EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class StatusController : ApiController
     {
         private readonly IStatusService _statusService;
-
+        
         public StatusController(IStatusService statusService)
         {
             _statusService = statusService;

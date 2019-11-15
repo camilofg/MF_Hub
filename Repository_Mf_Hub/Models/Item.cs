@@ -13,12 +13,18 @@ namespace Repository_Mf_Hub
         public int ItemId { get; set; }
 
         public string Description { get; set; }
-
+        //Foreign Key
         public int UserId { get; set; }
-
+        //Navigation Property
+        public User User { get; set; }
+        //Foreign Key
         public int StatusId { get; set; }
-
+        //Navigation property
+        public Status Status { get; set; }
+        //Foreign Key
         public int PriorityId { get; set; }
+        //Navigation property
+        public Priority Priority { get; set; }
 
         [Column(TypeName = "datetime2")]
         public DateTime Dateline { get; set; }

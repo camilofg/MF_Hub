@@ -8,9 +8,11 @@ using System.Web.WebPages;
 using BusinessLogic_MF;
 using Repository_Mf_Hub;
 using Services_MF;
+using System.Web.Http.Cors;
 
 namespace Mf_Hub.Controllers
 {
+    //[EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     [AllowAnonymous]
     public class UsersController : ApiController
     {
@@ -47,7 +49,12 @@ namespace Mf_Hub.Controllers
             if (_userLogic.ValidateUser(values.PasswordHash, user))
             {
                 var token = TokenGenerator.GenerateTokenJwt(user.Name);
-                return Ok(token);
+                var dictionary = new Dictionary<string, string>
+                {
+                    { "token", token },
+                    { "UserId", user.UserId.ToString() }
+                };
+                return Ok(dictionary);
             }
             return Unauthorized();
         }

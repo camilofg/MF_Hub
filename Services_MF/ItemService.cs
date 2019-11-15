@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ namespace Services_MF
 
         public IEnumerable<Item> GetUserItems(int userId)
         {
-            return _context.Items.Where(x => x.UserId == userId);
+            return _context.Items.Where(x => x.UserId == userId).Include(x => x.Status).Include(x => x.Priority);
         }
 
         public Item CreateItem(Item item)

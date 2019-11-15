@@ -21,7 +21,9 @@ namespace Repository_Mf_Hub
         public string Phone { get; set; }
 
         public string Email { get; set; }
-
+        //Foreign Key
         public int ProfileId { get; set; }
+        //Navigation Property
+        public Profile Profile { get; set; }
     }
 }
